@@ -88,6 +88,64 @@ z poniższych tanich zmian odwraca wynik:
 Jeśli po tych eksperymentach model nadal nie bije reguł — pomysł w obecnej formie
 (lokalny LLM jako wyróżnik) prawdopodobnie nie wypali, i oszczędzasz sobie miesiące.
 
+## Eksperymenty A / B / C (druga tura)
+
+Po pierwszym teście uruchomiono tanie eksperymenty w kolejności: najpierw darmowe
+dźwignie diagnostyczne, dopiero na końcu większy model. Kod: `experiments.py`.
+Surowe logi: `results/experiments.log` (1.5B) i `results/experiments_3b.log` (3B).
+
+### A. Rozdzielenie zadań (dark pattern vs slop)
+
+Hipoteza: „manipulacja" (presja/oszustwo) i „slop" (pusty wypełniacz) to dwie
+różne osie; rozdzielenie powinno pomóc małemu modelowi.
+
+| Zadanie | Model | Reguły F1 | LLM F1 |
+|---|---|---|---|
+| dark_pattern (49 próbek) | 1.5B | 85% | 70% |
+| dark_pattern (49 próbek) | 3B | 85% | **86%** |
+| slop (27 próbek) | 1.5B | 67% | 40% |
+| slop (27 próbek) | 3B | 67% | 41% |
+
+Wniosek: rozdzielenie **samo w sobie nie uratowało 1.5B**. Ale na zadaniu
+**dark_pattern model 3B osiąga parytet/lekką przewagę** nad regułami.
+**Slop to ślepa uliczka** dla małego lokalnego modelu: 1.5B przeocza, 3B flaguje
+niemal wszystko (recall 100%, precision 26%). Slop lepiej zostawić regułom albo
+w ogóle wyciąć z zakresu produktu.
+
+### B. Hybryda (reguły + LLM) na zadaniu dark_pattern
+
+| Wariant | Model | precision | recall | F1 |
+|---|---|---|---|---|
+| Reguły (baseline) | — | 88% | 82% | 85% |
+| OR (union) | 3B | 80% | 86% | 83% |
+| **AND (intersection)** | **3B** | **96%** | 82% | **88%** |
+| ROUTED (silne reguły, reszta LLM) | 3B | 86% | 86% | 86% |
+
+Wniosek: **hybryda AND (flaga tylko gdy reguły I LLM się zgadzają) jako jedyna
+wyraźnie bije reguły** — F1 88% przy **96% precyzji**. Dla narzędzia, które
+ukrywa/wycina treść i prosi o inwazyjne uprawnienia, wysoka precyzja (rzadkie
+fałszywe wycięcia) jest ważniejsza niż recall — to realnie najcenniejszy wynik.
+
+### C. Większy model (3B zamiast 1.5B)
+
+To właśnie rozmiar modelu, nie prompt ani architektura, przesunął wynik z 70% do
+86% na dark_pattern. Koszt: model ~2 GB (vs ~0.9 GB), ~1.5 s/próbkę na 4-rdz. CPU
+bez GPU (vs ~1.1 s) i wyższe zużycie RAM. To dokładnie ta zmiana warunków
+u użytkownika, przed którą ostrzegaliśmy.
+
+### Zrewidowany werdykt
+
+- Teza „lokalny LLM = wyróżnik" **przeżywa tylko w wąskiej formie**: 3B + hybryda
+  AND, **wyłącznie dla dark patterns**, gdzie realnym atutem jest 96% precyzji.
+- To przewaga **skromna** (+3 pkt F1 nad darmowymi regułami) kupiona **realnym
+  kosztem** (cięższy model, wolniejsza inferencja, więcej RAM).
+- **Slop lokalnie nie działa** — wytnij go z zakresu albo obsłuż regułami.
+- To **nie** jest „najprostszy w produkcji, szybki zysk". Przewaga nad darmem jest
+  mała i droga. Jeśli idziesz dalej, buduj wokół wąskiej obietnicy (precyzyjny,
+  w pełni lokalny detektor dark patterns), nie wokół „neutralizatora wszystkiego".
+
+(Zbiór to pilot \u2014 49/27 próbek; wyniki są kierunkowe, nie statystycznie twarde.)
+
 ## Ograniczenia
 
 - Zbiór jest mały i ręcznie tworzony — służy do szybkiej iteracji, nie do

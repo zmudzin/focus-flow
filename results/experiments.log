@@ -1,0 +1,29 @@
+Laduje model...
+
+### EKSPERYMENT A: ROZDZIELENIE ZADAN ###
+
+========================================================================
+ZADANIE 1/2: dark_pattern (presja/wina/oszustwo/bait)  (49 probek)
+========================================================================
+[Reguly] acc=84%  prec=88%  rec=82%  F1=85%  (TP=23 FP=3 TN=18 FN=5)
+[LLM]    acc=71%  prec=89%  rec=57%  F1=70%  (TP=16 FP=2 TN=19 FN=12)
+Delta F1 (LLM - reguly): -16%
+
+========================================================================
+ZADANIE 2/2: slop (pusty wypelniacz vs tresc)  (27 probek)
+========================================================================
+[Reguly] acc=89%  prec=100%  rec=50%  F1=67%  (TP=3 FP=0 TN=21 FN=3)
+[LLM]    acc=78%  prec=50%  rec=33%  F1=40%  (TP=2 FP=2 TN=19 FN=4)
+Delta F1 (LLM - reguly): -27%
+
+========================================================================
+EKSPERYMENT B: HYBRYDA na zadaniu dark_pattern
+========================================================================
+[OR    ] acc=82%  prec=85%  rec=82%  F1=84%  (TP=23 FP=4 TN=17 FN=5)
+[AND   ] acc=73%  prec=94%  rec=57%  F1=71%  (TP=16 FP=1 TN=20 FN=12)
+[ROUTED] acc=71%  prec=89%  rec=57%  F1=70%  (TP=16 FP=2 TN=19 FN=12)
+[Reguly] acc=84%  prec=88%  rec=82%  F1=85%  (TP=23 FP=3 TN=18 FN=5)  <- baseline do porownania
+[LLM   ] acc=71%  prec=89%  rec=57%  F1=70%  (TP=16 FP=2 TN=19 FN=12)  <- sam LLM
+
+Czas LLM lacznie: 57s
+DONE_EXIT=0
