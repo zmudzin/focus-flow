@@ -1,0 +1,5 @@
+# Prototyp walidacyjny Slop Scrubber.
+# Rdzen (reguly + harness) nie wymaga nic poza biblioteka standardowa Pythona.
+# Ponizsze sa potrzebne tylko do uruchomienia detektora LLM:
+llama-cpp-python==0.3.2
+huggingface-hub==0.26.2
