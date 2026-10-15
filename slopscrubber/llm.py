@@ -117,12 +117,17 @@ class LlamaDetector:
     def error(self) -> str | None:
         return self._error
 
-    def detect(self, text: str) -> LlmResult:
+    def detect(
+        self,
+        text: str,
+        system_prompt: str | None = None,
+        fewshot: list[tuple[str, str]] | None = None,
+    ) -> LlmResult:
         if self._llm is None:
             return LlmResult(False, None, None, self._error or "unavailable", "")
 
-        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-        for user_text, assistant_json in FEWSHOT:
+        messages = [{"role": "system", "content": system_prompt or SYSTEM_PROMPT}]
+        for user_text, assistant_json in (fewshot if fewshot is not None else FEWSHOT):
             messages.append({"role": "user", "content": user_text})
             messages.append({"role": "assistant", "content": assistant_json})
         messages.append({"role": "user", "content": text})
@@ -139,9 +144,10 @@ class LlamaDetector:
             lowered = raw.lower()
             manip = "true" in lowered and "false" not in lowered.split("true")[0]
             return LlmResult(True, manip, None, "unparsed", raw)
+        verdict = parsed.get("flag", parsed.get("manipulative"))
         return LlmResult(
             available=True,
-            is_manipulative=bool(parsed.get("manipulative")),
+            is_manipulative=bool(verdict),
             category=parsed.get("category"),
             reason=str(parsed.get("reason", "")),
             raw=raw,

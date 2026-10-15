@@ -57,11 +57,22 @@ class Detection:
     category: str | None
     matched: list[str]
 
+    @property
+    def strength(self) -> int:
+        """Liczba trafien = prosty sygnal pewnosci reguly."""
+        return len(self.matched)
 
-def detect(text: str) -> Detection:
-    """Zwraca werdykt regulowy dla fragmentu tekstu."""
+
+def detect(text: str, allowed: set[str] | None = None) -> Detection:
+    """Zwraca werdykt regulowy dla fragmentu tekstu.
+
+    allowed: jesli podane, bierze pod uwage tylko wzorce z tych kategorii
+    (uzywane do zadan zawezonych, np. tylko dark patterns albo tylko slop).
+    """
     hits: list[tuple[str, str]] = []
     for pattern, category in _PATTERNS:
+        if allowed is not None and category not in allowed:
+            continue
         m = pattern.search(text)
         if m:
             hits.append((category, m.group(0)))
