@@ -1,0 +1,138 @@
+Wczytano 55 probek (30 manipulacyjnych, 25 czystych).
+Inicjalizuje lokalny model (pierwsze uruchomienie moze pobierac plik GGUF)...
+  LLM  1/55  M  Hurry! Only 2 left in stock — offer ends in 04:59, orde
+  LLM  2/55  M  This exclusive price disappears when the timer hits zer
+  LLM  3/55  M  17 people are looking at this right now and it sold out
+  LLM  4/55  M  Zostały już tylko 3 sztuki! Promocja znika za 02:14. Ku
+  LLM  5/55  c  This article explains how fake countdown timers and 'on
+  LLM  6/55  M  The sale runs until Sunday 11:59 PM; prices return to n
+  LLM  7/55  M  No thanks, I don't want to save money and prefer paying
+  LLM  8/55  c  I'll stay uninformed and miss out on exclusive deals.
+  LLM  9/55  c  Maybe later. I understand my productivity probably won'
+  LLM 10/55  c  Nie, dziękuję, wolę przepłacać i nie korzystać z rabató
+  LLM 11/55  M  No thanks, close this dialog.
+  LLM 12/55  c  Decline optional cookies
+  LLM 13/55  M  You won't BELIEVE what this one weird trick does to you
+  LLM 14/55  M  What happened next left the entire internet speechless.
+  LLM 15/55  c  A quiet change to the tax code could affect how much yo
+  LLM 16/55  M  Nie uwierzysz, co ten jeden prosty trik robi z Twoim ra
+  LLM 17/55  M  Number 7 will shock you — these 23 celebrity homes are 
+  LLM 18/55  M  WAIT! Before you go — enter your email to unlock 10% of
+  LLM 19/55  c  Enable notifications to never miss an update. Allow / B
+  LLM 20/55  M  We value your privacy. Accept All  |  Manage preference
+  LLM 21/55  M  Your attention is required. Keep this tab open or your 
+  LLM 22/55  c  In today's fast-paced digital world, it is important to
+  LLM 23/55  c  Water is a vital resource. Without water, life as we kn
+  LLM 24/55  c  To reset the device, hold the power button for 10 secon
+  LLM 25/55  c  The 2024 model adds a 48MP sensor, USB-C, and a 4,500 m
+  LLM 26/55  c  W dzisiejszym dynamicznym świecie warto podkreślić, że 
+  LLM 27/55  M  Start your free trial. You will be charged €49.99/month
+  LLM 28/55  M  Your free trial lasts 14 days. We'll email you 3 days b
+  LLM 29/55  M  Rozpocznij darmowy okres próbny. Po 3 dniach pobierzemy
+  LLM 30/55  c  Sign in to your account
+  LLM 31/55  c  Search results for 'wireless headphones' (1,204 items)
+  LLM 32/55  c  Add to cart
+  LLM 33/55  c  Read our methodology and data sources at the bottom of 
+  LLM 34/55  M  Price going up soon! Lock in today's rate before everyo
+  LLM 35/55  M  Flash sale ends tonight at midnight.
+  LLM 36/55  M  No, I enjoy wasting money.
+  LLM 37/55  c  Nie teraz
+  LLM 38/55  c  She tried this for 30 days. The results? Keep reading t
+  LLM 39/55  c  Our 30-day review of the new model: battery, camera, an
+  LLM 40/55  c  When it comes to choosing the best option, there are ma
+  LLM 41/55  c  For most users we recommend the 512GB model: it's only 
+  LLM 42/55  M  Don't leave empty-handed! Spin the wheel now to claim y
+  LLM 43/55  M  To continue reading, your card will be charged automati
+  LLM 44/55  M  Wyprzedaż trwa do niedzieli do północy. W poniedziałek 
+  LLM 45/55  c  Skip — I'd rather figure it all out the hard way, alone
+  LLM 46/55  c  Your order #48213 has shipped and will arrive Thursday.
+  LLM 47/55  c  Testujemy nowy model przez 30 dni: bateria, aparat i wy
+  LLM 48/55  c  It is worth noting that noting things is worth it, and 
+  LLM 49/55  M  ⚠️ Your cart will be released in 09:58. Complete checko
+  LLM 50/55  c  This site uses cookies for analytics. Accept  |  Reject
+  LLM 51/55  c  Unsubscribe
+  LLM 52/55  c  Cancel your subscription anytime from Settings → Billin
+  LLM 53/55  c  In conclusion, the conclusion we can draw is that there
+  LLM 54/55  c  Limited edition: 500 units produced, 342 remaining. Eac
+  LLM 55/55  M  Experts hate when you learn this simple secret they tri
+
+LLM: 55 probek w 63.6s  (~1157 ms/probke na CPU)
+
+========================================================================
+WYNIKI OGOLNE
+========================================================================
+[Reguly]  acc=84%  precision=86%  recall=83%  F1=85%  (TP=25 FP=4 TN=21 FN=5)
+[LLM]     acc=69%  precision=76%  recall=63%  F1=69%  (TP=19 FP=6 TN=19 FN=11)
+
+Delta F1 (LLM - reguly): -16%
+
+========================================================================
+PODZBIOR 'TRUDNE DLA REGUL' (26 probek) — tu LLM musi wygrac
+========================================================================
+[Reguly]  acc=65%  precision=71%  recall=67%  F1=69%  (TP=10 FP=4 TN=7 FN=5)
+[LLM]     acc=50%  precision=60%  recall=40%  F1=48%  (TP=6 FP=4 TN=7 FN=9)
+
+Delta F1 na trudnych (LLM - reguly): -21%
+
+========================================================================
+PRZYPADKI ROZBIEZNE (reguly != LLM)
+========================================================================
+[u05] truth=clean reguly=M llm=c  -> ma racje: LLM
+        This article explains how fake countdown timers and 'only 2 left' banners pressure shopper
+[c02] truth=MANIP reguly=M llm=c  -> ma racje: REGULY
+        I'll stay uninformed and miss out on exclusive deals.
+[c04] truth=MANIP reguly=M llm=c  -> ma racje: REGULY
+        Nie, dziękuję, wolę przepłacać i nie korzystać z rabatów.
+[c05] truth=clean reguly=c llm=M  -> ma racje: REGULY
+        No thanks, close this dialog.
+[p03] truth=clean reguly=c llm=M  -> ma racje: REGULY
+        We value your privacy. Accept All  |  Manage preferences
+[s01] truth=MANIP reguly=M llm=c  -> ma racje: REGULY
+        In today's fast-paced digital world, it is important to note that leveraging synergies can
+[s05] truth=MANIP reguly=M llm=c  -> ma racje: REGULY
+        W dzisiejszym dynamicznym świecie warto podkreślić, że synergia możliwości otwiera przed n
+[h02] truth=clean reguly=c llm=M  -> ma racje: REGULY
+        Your free trial lasts 14 days. We'll email you 3 days before it ends, and you can cancel a
+[b06] truth=MANIP reguly=M llm=c  -> ma racje: REGULY
+        She tried this for 30 days. The results? Keep reading to find out.
+[u09] truth=clean reguly=c llm=M  -> ma racje: REGULY
+        Wyprzedaż trwa do niedzieli do północy. W poniedziałek ceny wracają do normalnych.
+[s08] truth=MANIP reguly=M llm=c  -> ma racje: REGULY
+        It is worth noting that noting things is worth it, and in this comprehensive guide we will
+[u11] truth=clean reguly=M llm=c  -> ma racje: LLM
+        Limited edition: 500 units produced, 342 remaining. Each is numbered.
+
+========================================================================
+BLEDY REGUL (FP = nadgorliwosc, FN = przeoczenia)
+========================================================================
+  FP [u05] clean            This article explains how fake countdown timers and 'only 2 left' bann
+  FP [u06] clean            The sale runs until Sunday 11:59 PM; prices return to normal on Monday
+  FN [c03] confirmshaming   Maybe later. I understand my productivity probably won't improve on it
+  FN [s02] ai_slop          Water is a vital resource. Without water, life as we know it could not
+  FP [u08] fake_urgency     Flash sale ends tonight at midnight.
+  FN [s06] ai_slop          When it comes to choosing the best option, there are many factors to c
+  FN [c09] confirmshaming   Skip — I'd rather figure it all out the hard way, alone.
+  FN [s09] ai_slop          In conclusion, the conclusion we can draw is that there is much to con
+  FP [u11] clean            Limited edition: 500 units produced, 342 remaining. Each is numbered.
+
+========================================================================
+BLEDY LLM (FP = nadgorliwosc, FN = przeoczenia)
+========================================================================
+  FP [u06] clean            The sale runs until Sunday 11:59 PM; prices return to normal on Monday
+  FN [c02] confirmshaming   I'll stay uninformed and miss out on exclusive deals.
+  FN [c03] confirmshaming   Maybe later. I understand my productivity probably won't improve on it
+  FN [c04] confirmshaming   Nie, dziękuję, wolę przepłacać i nie korzystać z rabatów.
+  FP [c05] clean            No thanks, close this dialog.
+  FP [p03] aggressive_popup We value your privacy. Accept All  |  Manage preferences
+  FN [s01] ai_slop          In today's fast-paced digital world, it is important to note that leve
+  FN [s02] ai_slop          Water is a vital resource. Without water, life as we know it could not
+  FN [s05] ai_slop          W dzisiejszym dynamicznym świecie warto podkreślić, że synergia możliw
+  FP [h02] clean            Your free trial lasts 14 days. We'll email you 3 days before it ends, 
+  FP [u08] fake_urgency     Flash sale ends tonight at midnight.
+  FN [b06] clickbait        She tried this for 30 days. The results? Keep reading to find out.
+  FN [s06] ai_slop          When it comes to choosing the best option, there are many factors to c
+  FP [u09] clean            Wyprzedaż trwa do niedzieli do północy. W poniedziałek ceny wracają do
+  FN [c09] confirmshaming   Skip — I'd rather figure it all out the hard way, alone.
+  FN [s08] ai_slop          It is worth noting that noting things is worth it, and in this compreh
+  FN [s09] ai_slop          In conclusion, the conclusion we can draw is that there is much to con
+DONE_EXIT=0

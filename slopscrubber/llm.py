@@ -57,6 +57,20 @@ FEWSHOT = [
         "The 2024 model adds a 48MP sensor and a 4,500 mAh battery.",
         '{"manipulative": false, "category": "clean", "reason": "factual spec text"}',
     ),
+    # Neutralne etykiety UI = clean (model mial tendencje do ich nadmiernego flagowania).
+    (
+        "Add to cart",
+        '{"manipulative": false, "category": "clean", "reason": "neutral UI button"}',
+    ),
+    (
+        "Unsubscribe",
+        '{"manipulative": false, "category": "clean", "reason": "neutral link"}',
+    ),
+    # Pusty wypelniacz = ai_slop (model mial tendencje do uznawania go za clean).
+    (
+        "In today's fast-paced world, leveraging synergies unlocks a myriad of opportunities at the end of the day.",
+        '{"manipulative": true, "category": "ai_slop", "reason": "content-free buzzword filler"}',
+    ),
 ]
 
 
